@@ -4,23 +4,15 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
 
 const Navbar = () => {
   const pathname = usePathname()
-  const [isScrolled, setIsScrolled] = useState(false)
   const { scrollY } = useScroll()
   
-  const headerTopPadding = useTransform(scrollY, [0, 100], ['1.5rem', '0rem'])
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  // Transform values for scroll animation
+  const navbarPadding = useTransform(scrollY, [0, 100], ['24px', '16px'])
+  const navbarScale = useTransform(scrollY, [0, 100], [1, 0.98])
+  const navbarOpacity = useTransform(scrollY, [0, 100], [1, 0.95])
 
   const links = [
     { href: '/', label: 'Home' },
@@ -39,14 +31,16 @@ const Navbar = () => {
     >
       <motion.div
         style={{
-          paddingTop: headerTopPadding,
+          padding: navbarPadding,
         }}
-        className="px-8 pb-6 transition-all duration-300"
+        className="px-12 md:px-16 lg:px-20"
       >
         <motion.nav
-          style={{ backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.95)' : 'rgba(255, 255, 255, 0.8)' }}
-          className={`backdrop-blur-lg supports-[backdrop-filter]:bg-white/60 px-8 py-4 transition-all duration-300
-            ${isScrolled ? 'shadow-lg rounded-b-2xl' : 'rounded-2xl'}`}
+          style={{
+            scale: navbarScale,
+            opacity: navbarOpacity,
+          }}
+          className="max-w-7xl mx-auto backdrop-blur-lg bg-white/80 supports-[backdrop-filter]:bg-white/60 px-8 py-4 rounded-2xl"
         >
           <div className="flex items-center justify-between">
             <Link href="/" className="relative">
@@ -65,13 +59,8 @@ const Navbar = () => {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative px-6 py-2 mx-2 font-semibold uppercase text-sm tracking-wide transition-all duration-200 rounded-full
-                    ${pathname === link.href 
-                      ? 'text-white' 
-                      : 'text-gray-700 hover:text-gray-900'
-                    }
-                    group
-                    `}
+                  className={`relative px-5 py-2 mx-1.5 font-semibold uppercase text-sm tracking-wide transition-all duration-200 rounded-full group
+                    ${pathname === link.href ? 'text-white' : 'text-gray-700 hover:text-gray-900'}`}
                 >
                   {link.label}
                   {pathname === link.href && (
@@ -81,9 +70,7 @@ const Navbar = () => {
                       transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
                   )}
-                  <div
-                    className="absolute inset-0 bg-[#F1F2F4] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-200 -z-10"
-                  />
+                  <div className="absolute inset-0 bg-[#F1F2F4] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-200 -z-10" />
                 </Link>
               ))}
             </div>
