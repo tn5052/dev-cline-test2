@@ -10,13 +10,7 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const { scrollY } = useScroll()
   
-  const headerHeight = useTransform(scrollY, [0, 100], ['7rem', '4.5rem'])
-  const headerPadding = useTransform(scrollY, [0, 100], ['1.5rem', '0.75rem'])
-  const headerBg = useTransform(
-    scrollY,
-    [0, 100],
-    ['rgba(255, 255, 255, 0.8)', 'rgba(255, 255, 255, 0.95)']
-  )
+  const headerTopPadding = useTransform(scrollY, [0, 100], ['1.5rem', '0rem'])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,13 +38,12 @@ const Navbar = () => {
     >
       <motion.div
         style={{
-          height: headerHeight,
-          padding: headerPadding,
+          paddingTop: headerTopPadding,
         }}
-        className="transition-all duration-300"
+        className="px-8 pb-6 transition-all duration-300"
       >
         <motion.nav
-          style={{ backgroundColor: headerBg }}
+          style={{ backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.95)' : 'rgba(255, 255, 255, 0.8)' }}
           className={`backdrop-blur-lg supports-[backdrop-filter]:bg-white/60 px-8 py-4 transition-all duration-300
             ${isScrolled ? 'shadow-lg rounded-b-2xl' : 'rounded-2xl'}`}
         >
