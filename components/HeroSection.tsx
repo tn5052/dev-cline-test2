@@ -5,6 +5,7 @@ import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { gsap } from 'gsap'
 import { FaRobot, FaCode, FaBrain, FaChartLine, FaPalette } from 'react-icons/fa'
+import Link from 'next/link'
 
 const services = [
   { 
@@ -83,7 +84,7 @@ const HeroSection = () => {
   return (
     <div ref={containerRef} className="relative min-h-screen pt-16 overflow-hidden bg-[#f8f9fa]">
       {/* Geometric Shapes */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <svg className="geometric-shape absolute -top-20 -right-20 w-96 h-96 text-primary/5" viewBox="0 0 100 100">
           <circle cx="50" cy="50" r="40" fill="currentColor"/>
         </svg>
@@ -93,14 +94,14 @@ const HeroSection = () => {
       </div>
 
       {/* Content Container */}
-      <div className="container mx-auto px-4 h-[calc(100vh-4rem)]">
+      <div className="container mx-auto px-4 h-[calc(100vh-4rem)] relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 h-full items-center">
           {/* Left Column - Text Content */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="space-y-8"
+            className="space-y-8 relative z-20"
           >
             <motion.span
               initial={{ opacity: 0, y: 20 }}
@@ -136,23 +137,27 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
-              className="flex flex-wrap gap-4"
+              className="flex flex-wrap gap-4 relative z-30"
             >
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="px-8 py-4 bg-primary text-white rounded-lg font-medium shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all"
-              >
-                Start Project
-              </motion.button>
+              <Link href="/contact">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="px-8 py-4 bg-primary text-white rounded-lg font-medium shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all cursor-pointer"
+                >
+                  Start Project
+                </motion.button>
+              </Link>
               
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="px-8 py-4 text-primary border-2 border-primary/10 rounded-lg font-medium hover:bg-primary/5 transition-colors"
-              >
-                View Our Work
-              </motion.button>
+              <Link href="/portfolio">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="px-8 py-4 text-primary border-2 border-primary/10 rounded-lg font-medium hover:bg-primary/5 transition-colors cursor-pointer"
+                >
+                  View Our Work
+                </motion.button>
+              </Link>
             </motion.div>
 
             {/* Stats */}
@@ -180,7 +185,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
-            className="relative hidden lg:block"
+            className="relative hidden lg:block pointer-events-none"
           >
             <div className="relative w-full h-[600px] flex items-center justify-center">
               {/* Central Devnex Logo */}
@@ -244,44 +249,31 @@ const HeroSection = () => {
                   const Icon = service.icon
 
                   return (
-                    <motion.div
+                    <div
                       key={service.id}
                       className="service-item absolute left-1/2 top-1/2"
                       style={{
                         transform: `translate(${x}px, ${y}px) translate(-50%, -50%)`,
                       }}
-                      whileHover={{ scale: 1.1 }}
                     >
-                      <motion.div
+                      <div
                         className={`w-24 h-24 rounded-2xl bg-gradient-to-br ${service.color} 
                           ${service.shadowColor} shadow-lg backdrop-blur-md bg-opacity-90
-                          flex flex-col items-center justify-center text-white cursor-pointer
-                          border border-white/10 hover:border-white/20 transition-all duration-300`}
-                        whileHover={{
-                          boxShadow: "0 8px 30px rgba(0,0,0,0.12)",
-                          y: -2
-                        }}
+                          flex flex-col items-center justify-center text-white
+                          border border-white/10`}
                       >
                         <Icon className="text-3xl mb-2" />
                         <span className="text-xs font-medium text-center px-2">
                           {service.name}
                         </span>
-                        <motion.div
-                          className="absolute inset-0 bg-white/5 rounded-2xl"
-                          initial={false}
-                          whileHover={{
-                            opacity: [0, 1, 0],
-                            transition: { duration: 1, repeat: Infinity }
-                          }}
-                        />
-                      </motion.div>
-                    </motion.div>
+                      </div>
+                    </div>
                   )
                 })}
               </div>
 
               {/* Decorative Elements */}
-              <div className="absolute inset-0">
+              <div className="absolute inset-0 pointer-events-none">
                 <motion.div
                   animate={{
                     scale: [1, 1.2, 1],
@@ -327,7 +319,7 @@ const HeroSection = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none"
       >
         <span className="text-sm text-gray-500 mb-2">Scroll to explore</span>
         <motion.div
