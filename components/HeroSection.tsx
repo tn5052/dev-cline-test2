@@ -4,13 +4,44 @@ import Image from 'next/image'
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { gsap } from 'gsap'
+import { FaRobot, FaCode, FaBrain, FaChartLine, FaPalette } from 'react-icons/fa'
 
 const services = [
-  { id: 1, name: 'AI Automation', icon: '🤖', color: 'from-blue-400 to-blue-600' },
-  { id: 2, name: 'Web Development', icon: '💻', color: 'from-purple-400 to-purple-600' },
-  { id: 3, name: 'AI Agents', icon: '🎯', color: 'from-green-400 to-green-600' },
-  { id: 4, name: 'Digital Marketing', icon: '📱', color: 'from-red-400 to-red-600' },
-  { id: 5, name: 'Branding', icon: '✨', color: 'from-yellow-400 to-yellow-600' },
+  { 
+    id: 1, 
+    name: 'AI Automation', 
+    icon: FaRobot,
+    color: 'from-blue-500 via-blue-400 to-cyan-400',
+    shadowColor: 'shadow-blue-500/20'
+  },
+  { 
+    id: 2, 
+    name: 'Web Development', 
+    icon: FaCode,
+    color: 'from-violet-500 via-purple-500 to-purple-400',
+    shadowColor: 'shadow-purple-500/20'
+  },
+  { 
+    id: 3, 
+    name: 'AI Agents', 
+    icon: FaBrain,
+    color: 'from-emerald-500 via-green-500 to-teal-400',
+    shadowColor: 'shadow-emerald-500/20'
+  },
+  { 
+    id: 4, 
+    name: 'Digital Marketing', 
+    icon: FaChartLine,
+    color: 'from-rose-500 via-red-500 to-orange-400',
+    shadowColor: 'shadow-rose-500/20'
+  },
+  { 
+    id: 5, 
+    name: 'Branding', 
+    icon: FaPalette,
+    color: 'from-amber-400 via-yellow-400 to-orange-400',
+    shadowColor: 'shadow-amber-400/20'
+  },
 ]
 
 const HeroSection = () => {
@@ -210,6 +241,7 @@ const HeroSection = () => {
                   const radius = 200 // Match the circle radius
                   const x = Math.cos((angle * Math.PI) / 180) * radius
                   const y = Math.sin((angle * Math.PI) / 180) * radius
+                  const Icon = service.icon
 
                   return (
                     <motion.div
@@ -221,17 +253,27 @@ const HeroSection = () => {
                       whileHover={{ scale: 1.1 }}
                     >
                       <motion.div
-                        className={`w-20 h-20 rounded-lg bg-gradient-to-br ${service.color} 
-                          shadow-lg flex flex-col items-center justify-center text-white cursor-pointer
-                          backdrop-blur-md bg-opacity-90`}
+                        className={`w-24 h-24 rounded-2xl bg-gradient-to-br ${service.color} 
+                          ${service.shadowColor} shadow-lg backdrop-blur-md bg-opacity-90
+                          flex flex-col items-center justify-center text-white cursor-pointer
+                          border border-white/10 hover:border-white/20 transition-all duration-300`}
                         whileHover={{
-                          boxShadow: "0 0 20px rgba(0,0,0,0.2)"
+                          boxShadow: "0 8px 30px rgba(0,0,0,0.12)",
+                          y: -2
                         }}
                       >
-                        <span className="text-2xl mb-1">{service.icon}</span>
-                        <span className="text-xs font-medium text-center">
+                        <Icon className="text-3xl mb-2" />
+                        <span className="text-xs font-medium text-center px-2">
                           {service.name}
                         </span>
+                        <motion.div
+                          className="absolute inset-0 bg-white/5 rounded-2xl"
+                          initial={false}
+                          whileHover={{
+                            opacity: [0, 1, 0],
+                            transition: { duration: 1, repeat: Infinity }
+                          }}
+                        />
                       </motion.div>
                     </motion.div>
                   )
