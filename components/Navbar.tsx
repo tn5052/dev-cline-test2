@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -48,8 +49,15 @@ const Navbar = () => {
             ${isScrolled ? 'shadow-lg rounded-b-2xl' : 'rounded-2xl'}`}
         >
           <div className="flex items-center justify-between">
-            <Link href="/" className="text-gray-900 text-xl font-bold">
-              Devnex
+            <Link href="/" className="relative">
+              <Image
+                src="/images/logo/devnex-logo.png"
+                alt="Devnex Logo"
+                width={120}
+                height={40}
+                className="object-contain"
+                priority
+              />
             </Link>
 
             <div className="hidden md:flex items-center justify-center flex-1 px-8">
