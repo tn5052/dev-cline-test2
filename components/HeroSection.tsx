@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { gsap } from 'gsap'
@@ -154,16 +155,22 @@ const HeroSection = () => {
               {/* Central Devnex Logo */}
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="absolute z-10 w-48 h-48 bg-white rounded-full shadow-xl flex items-center justify-center"
+                className="absolute z-10 w-48 h-48 bg-white rounded-full shadow-xl flex items-center justify-center p-6"
               >
                 <div className="relative">
                   <motion.div
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.5, duration: 0.5 }}
-                    className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
                   >
-                    Devnex
+                    <Image
+                      src="/images/logo/devnex-logo.png"
+                      alt="Devnex Logo"
+                      width={140}
+                      height={50}
+                      className="object-contain"
+                      priority
+                    />
                   </motion.div>
                   <motion.div
                     animate={{
