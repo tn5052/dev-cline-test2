@@ -83,7 +83,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-5xl lg:text-7xl font-bold leading-tight"
+              className="text-5xl lg:text-7xl font-['Chillax'] font-semibold leading-tight"
             >
               Transform Your
               <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
