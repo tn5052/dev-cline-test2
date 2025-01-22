@@ -15,7 +15,7 @@
     "@nextui-org/react": "^2.2.9",
     "framer-motion": "^10.18.0",
     "gsap": "^3.12.4",
-    "next": "14.0.4",
+    "next": "^14.2.23",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "typescript": "^5.3.3"
