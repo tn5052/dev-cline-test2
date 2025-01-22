@@ -57,11 +57,13 @@ const Navbar = () => {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative px-6 py-2 mx-2 font-semibold uppercase text-sm tracking-wide transition-colors rounded-full
+                  className={`relative px-6 py-2 mx-2 font-semibold uppercase text-sm tracking-wide transition-all duration-200 rounded-full
                     ${pathname === link.href 
                       ? 'text-white' 
                       : 'text-gray-700 hover:text-gray-900'
-                    }`}
+                    }
+                    group
+                    `}
                 >
                   {link.label}
                   {pathname === link.href && (
@@ -71,9 +73,8 @@ const Navbar = () => {
                       transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
                   )}
-                  <motion.div
-                    className="absolute inset-0 bg-[#F1F2F4] rounded-full opacity-0 hover:opacity-100 transition-opacity -z-10"
-                    initial={false}
+                  <div
+                    className="absolute inset-0 bg-[#F1F2F4] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-200 -z-10"
                   />
                 </Link>
               ))}
