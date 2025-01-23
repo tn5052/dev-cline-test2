@@ -9,12 +9,14 @@ import Footer from '@/components/Footer'
 const inter = Inter({ 
   subsets: ['latin'],
   variable: '--font-inter',
+  display: 'swap',
 })
 
 const poppins = Poppins({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
   variable: '--font-poppins',
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -29,7 +31,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
-      <body className={inter.className}>
+      <body suppressHydrationWarning={true} className={inter.className}>
         <Providers>
           <div className="flex flex-col min-h-screen">
             <Navbar />

@@ -3,9 +3,29 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { FaLinkedin, FaTwitter, FaGithub, FaInstagram } from 'react-icons/fa'
+import { FaLinkedin, FaTwitter, FaInstagram, FaFacebook } from 'react-icons/fa'
+import { useState } from 'react'
 
 const Footer = () => {
+  const [email, setEmail] = useState('')
+  const [error, setError] = useState('')
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault()
+    setError('')
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      setError('Please enter a valid email address')
+      return
+    }
+
+    // Handle subscription logic here
+    console.log('Subscribing:', email)
+    setEmail('')
+  }
+
   const footerSections = {
     services: [
       { name: 'AI Automation', href: '/services/ai-automation' },
@@ -34,10 +54,10 @@ const Footer = () => {
   }
 
   const socialLinks = [
-    { icon: FaLinkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-    { icon: FaTwitter, href: 'https://twitter.com', label: 'Twitter' },
-    { icon: FaGithub, href: 'https://github.com', label: 'GitHub' },
-    { icon: FaInstagram, href: 'https://instagram.com', label: 'Instagram' },
+    { icon: FaLinkedin, href: 'https://www.linkedin.com/company/devnexglobal/', label: 'LinkedIn' },
+    { icon: FaTwitter, href: 'https://twitter.com/DevnexGlobal', label: 'Twitter' },
+    { icon: FaInstagram, href: 'https://www.instagram.com/devnex.co/', label: 'Instagram' },
+    { icon: FaFacebook, href: 'https://www.facebook.com/Devnexglobal/', label: 'Facebook' },
   ]
 
   return (
@@ -119,16 +139,43 @@ const Footer = () => {
           {/* Newsletter */}
           <div className="lg:col-span-2">
             <h3 className="text-gray-900 font-semibold mb-4">Stay Updated</h3>
-            <form onSubmit={(e) => e.preventDefault()} className="space-y-3">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-              />
+            <form onSubmit={handleSubscribe} className="space-y-3">
+              <div className="space-y-2">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                  required
+                  maxLength={100}
+                  pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+                  aria-label="Email subscription"
+                  aria-required="true"
+                  aria-invalid={error ? "true" : "false"}
+                  aria-describedby={error ? "email-error" : undefined}
+                  autoComplete="email"
+                  spellCheck="false"
+                  // Security attributes
+                  data-testid="newsletter-email"
+                  translate="no"
+                />
+                {error && (
+                  <p 
+                    id="email-error" 
+                    className="text-red-500 text-sm" 
+                    role="alert"
+                  >
+                    {error}
+                  </p>
+                )}
+              </div>
               <motion.button
+                type="submit"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="w-full px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+                aria-label="Subscribe to newsletter"
               >
                 Subscribe
               </motion.button>
