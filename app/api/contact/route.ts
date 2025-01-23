@@ -14,7 +14,7 @@ function isRateLimited(ip: string): boolean {
     ipRequestCounts.set(ip, { count: 1, timestamp: now })
     return false
   }
-
+  
   if (now - requestData.timestamp > RATE_LIMIT_WINDOW) {
     // Reset if the window has passed
     ipRequestCounts.set(ip, { count: 1, timestamp: now })
