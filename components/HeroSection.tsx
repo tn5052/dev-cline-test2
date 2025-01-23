@@ -132,7 +132,7 @@ const HeroSection = () => {
   }
 
   return (
-    <div ref={containerRef} className="relative min-h-screen pt-16 overflow-hidden bg-[#f8f9fa]">
+    <div ref={containerRef} className="relative min-h-screen overflow-hidden bg-[#f8f9fa]">
       {/* Floating Gradient Background */}
       <motion.div 
         className="absolute inset-0 opacity-40"
@@ -158,8 +158,8 @@ const HeroSection = () => {
       </div>
 
       {/* Content Container */}
-      <div className="container mx-auto px-4 h-[calc(100vh-4rem)] relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 h-full items-center">
+      <div className="container mx-auto px-4 min-h-screen relative z-10 flex items-center">
+        <div className="grid lg:grid-cols-2 gap-12 w-full items-center py-12">
           {/* Left Column - Text Content */}
           <motion.div className="space-y-8 relative z-20">
             {/* Updated Value Proposition Label */}
