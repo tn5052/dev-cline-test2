@@ -120,41 +120,43 @@ const Navbar = () => {
             bg-white/70 supports-[backdrop-filter]:bg-white/50 px-3 sm:px-8 py-3 rounded-2xl"
         >
           <div className="flex items-center justify-between">
-            <motion.div
-              className="relative z-50 h-[33px] overflow-hidden"
-              variants={logoContainerVariants}
-              initial="initial"
-              animate={isHovered ? "hover" : "initial"}
-              onHoverStart={() => setIsHovered(true)}
-              onHoverEnd={() => setIsHovered(false)}
-            >
-              <motion.div 
-                className="absolute inset-0 flex items-center"
-                variants={fullLogoVariants}
+            <Link href="/">
+              <motion.div
+                className="relative z-50 h-[33px] overflow-hidden"
+                variants={logoContainerVariants}
+                initial="initial"
+                animate={isHovered ? "hover" : "initial"}
+                onHoverStart={() => setIsHovered(true)}
+                onHoverEnd={() => setIsHovered(false)}
               >
-                <Image
-                  src="/images/logo/devnex-logo.png"
-                  alt="Devnex Full Logo"
-                  width={120}
-                  height={33}
-                  className="object-contain"
-                  priority
-                />
+                <motion.div 
+                  className="absolute inset-0 flex items-center"
+                  variants={fullLogoVariants}
+                >
+                  <Image
+                    src="/images/logo/devnex-logo.png"
+                    alt="Devnex Full Logo"
+                    width={120}
+                    height={33}
+                    className="object-contain"
+                    priority
+                  />
+                </motion.div>
+                <motion.div 
+                  className="absolute inset-0 flex items-center"
+                  variants={shortLogoVariants}
+                >
+                  <Image
+                    src="/images/logo/short-logo.png"
+                    alt="Devnex Short Logo"
+                    width={40}
+                    height={33}
+                    className="object-contain"
+                    priority
+                  />
+                </motion.div>
               </motion.div>
-              <motion.div 
-                className="absolute inset-0 flex items-center"
-                variants={shortLogoVariants}
-              >
-                <Image
-                  src="/images/logo/short-logo.png"
-                  alt="Devnex Short Logo"
-                  width={40}
-                  height={33}
-                  className="object-contain"
-                  priority
-                />
-              </motion.div>
-            </motion.div>
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center justify-center flex-1 px-8">
@@ -183,13 +185,15 @@ const Navbar = () => {
               ))}
             </div>
 
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="hidden md:block btn-secondary bg-[#333333] text-white px-6 py-2 rounded-full font-semibold"
-            >
-              Get in touch
-            </motion.button>
+            <Link href="/contact">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="hidden md:block btn-secondary bg-[#333333] text-white px-6 py-2 rounded-full font-semibold"
+              >
+                Get in touch
+              </motion.button>
+            </Link>
 
             {/* Mobile Menu Button */}
             <button 
@@ -282,10 +286,12 @@ const Navbar = () => {
                 custom={links.length}
                 className="mt-8"
               >
-                <button className="w-full bg-[#333333] text-white py-4 px-5 rounded-xl font-medium text-lg
-                                 shadow-lg shadow-gray-200/50 active:scale-[0.98] transition-transform">
-                  Get in touch
-                </button>
+                <Link href="/contact">
+                  <button className="w-full bg-[#333333] text-white py-4 px-5 rounded-xl font-medium text-lg
+                                   shadow-lg shadow-gray-200/50 active:scale-[0.98] transition-transform">
+                    Get in touch
+                  </button>
+                </Link>
               </motion.div>
             </div>
           </motion.div>
