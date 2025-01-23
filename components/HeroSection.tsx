@@ -147,15 +147,7 @@ const HeroSection = () => {
         transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
       />
 
-      {/* Geometric Shapes */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <svg className="geometric-shape absolute -top-20 -right-20 w-96 h-96 text-primary/5" viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="40" fill="currentColor"/>
-        </svg>
-        <svg className="geometric-shape absolute -bottom-40 -left-40 w-[600px] h-[600px] text-secondary/5" viewBox="0 0 100 100">
-          <rect x="20" y="20" width="60" height="60" fill="currentColor"/>
-        </svg>
-      </div>
+
 
       {/* Content Container */}
       <div className="container mx-auto px-4 min-h-screen relative z-10 flex items-center">
@@ -247,13 +239,7 @@ const HeroSection = () => {
                     bg-clip-text text-transparent inline-block`}
                   >
                     Presence
-                    <motion.span
-                      className="inline-block ml-2"
-                      animate={{ rotate: [0, 10, 0] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    >
-                      ✨
-                    </motion.span>
+         
                   </span>
                 </motion.div>
 
