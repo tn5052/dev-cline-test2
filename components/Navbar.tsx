@@ -8,6 +8,7 @@ import { useState } from 'react'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
   const pathname = usePathname()
   const { scrollY } = useScroll()
   
@@ -56,6 +57,47 @@ const Navbar = () => {
     })
   }
 
+  const logoContainerVariants = {
+    initial: { 
+      width: 40,
+      transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] }
+    },
+    hover: { 
+      width: 120,
+      transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] }
+    }
+  }
+
+  const shortLogoVariants = {
+    initial: { 
+      x: 0,
+      opacity: 1,
+      zIndex: 2,
+      transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] }
+    },
+    hover: { 
+      x: 40,
+      opacity: 0,
+      zIndex: 1,
+      transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] }
+    }
+  }
+
+  const fullLogoVariants = {
+    initial: { 
+      scale: 0.9,
+      opacity: 0,
+      x: -20,
+      transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] }
+    },
+    hover: { 
+      scale: 1,
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] }
+    }
+  }
+
   return (
     <motion.header 
       className="fixed top-0 w-full z-50"
@@ -78,16 +120,41 @@ const Navbar = () => {
             bg-white/70 supports-[backdrop-filter]:bg-white/50 px-3 sm:px-8 py-3 rounded-2xl"
         >
           <div className="flex items-center justify-between">
-            <Link href="/" className="relative z-50">
-              <Image
-                src="/images/logo/devnex-logo.png"
-                alt="Devnex Logo"
-                width={100}
-                height={33}
-                className="object-contain sm:w-[120px]"
-                priority
-              />
-            </Link>
+            <motion.div
+              className="relative z-50 h-[33px] overflow-hidden"
+              variants={logoContainerVariants}
+              initial="initial"
+              animate={isHovered ? "hover" : "initial"}
+              onHoverStart={() => setIsHovered(true)}
+              onHoverEnd={() => setIsHovered(false)}
+            >
+              <motion.div 
+                className="absolute inset-0 flex items-center"
+                variants={fullLogoVariants}
+              >
+                <Image
+                  src="/images/logo/devnex-logo.png"
+                  alt="Devnex Full Logo"
+                  width={120}
+                  height={33}
+                  className="object-contain"
+                  priority
+                />
+              </motion.div>
+              <motion.div 
+                className="absolute inset-0 flex items-center"
+                variants={shortLogoVariants}
+              >
+                <Image
+                  src="/images/logo/short-logo.png"
+                  alt="Devnex Short Logo"
+                  width={40}
+                  height={33}
+                  className="object-contain"
+                  priority
+                />
+              </motion.div>
+            </motion.div>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center justify-center flex-1 px-8">
