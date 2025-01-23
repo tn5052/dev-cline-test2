@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
-import { motion, useAnimation } from 'framer-motion'
+import { motion, useAnimation, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { gsap } from 'gsap'
 import { FaRobot, FaCode, FaBrain, FaChartLine, FaPalette } from 'react-icons/fa'
 import Link from 'next/link'
@@ -48,6 +48,25 @@ const services = [
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null)
   const orbitRef = useRef<HTMLDivElement>(null)
+
+  const headingRef = useRef<HTMLDivElement>(null)
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+  const textX = useSpring(useTransform(mouseX, [-100, 100], [-5, 5]), { stiffness: 100, damping: 30 })
+  const textY = useSpring(useTransform(mouseY, [-100, 100], [-5, 5]), { stiffness: 100, damping: 30 })
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = headingRef.current?.getBoundingClientRect() ?? { left: 0, top: 0, width: 0, height: 0 }
+    const x = e.clientX - rect.left - rect.width / 2
+    const y = e.clientY - rect.top - rect.height / 2
+    mouseX.set(x)
+    mouseY.set(y)
+  }
+
+  const handleMouseLeave = () => {
+    mouseX.set(0)
+    mouseY.set(0)
+  }
 
   const headingControls = useAnimation()
   const glowControls = useAnimation()
@@ -99,8 +118,35 @@ const HeroSection = () => {
     })
   }, [glowControls])
 
+  const letterVariants = {
+    hidden: { y: 100, opacity: 0 },
+    visible: (i: number) => ({
+      y: 0,
+      opacity: 1,
+      transition: {
+        delay: i * 0.03,
+        duration: 0.5,
+        ease: [0.33, 1, 0.68, 1]
+      }
+    })
+  }
+
   return (
     <div ref={containerRef} className="relative min-h-screen pt-16 overflow-hidden bg-[#f8f9fa]">
+      {/* Floating Gradient Background */}
+      <motion.div 
+        className="absolute inset-0 opacity-40"
+        animate={{
+          background: [
+            'radial-gradient(circle at 0% 0%, rgba(79, 70, 229, 0.1) 0%, transparent 50%)',
+            'radial-gradient(circle at 100% 100%, rgba(79, 70, 229, 0.1) 0%, transparent 50%)',
+            'radial-gradient(circle at 0% 100%, rgba(79, 70, 229, 0.1) 0%, transparent 50%)',
+            'radial-gradient(circle at 100% 0%, rgba(79, 70, 229, 0.1) 0%, transparent 50%)',
+          ]
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+      />
+
       {/* Geometric Shapes */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <svg className="geometric-shape absolute -top-20 -right-20 w-96 h-96 text-primary/5" viewBox="0 0 100 100">
@@ -116,21 +162,35 @@ const HeroSection = () => {
         <div className="grid lg:grid-cols-2 gap-12 h-full items-center">
           {/* Left Column - Text Content */}
           <motion.div className="space-y-8 relative z-20">
-            {/* Agency Label */}
+            {/* Updated Value Proposition Label */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-3 px-5 py-2 rounded-full 
-                bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100"
+              className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full 
+                bg-gradient-to-r from-indigo-50/80 to-violet-50/80 border border-indigo-100/50
+                backdrop-blur-sm shadow-sm"
             >
               <motion.div
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className={`w-2 h-2 rounded-full bg-gradient-to-r ${gradients.primary}`}
+                animate={{ 
+                  scale: [1, 1.2, 1],
+                  background: [
+                    'linear-gradient(to right, #4F46E5, #7C3AED)',
+                    'linear-gradient(to right, #7C3AED, #4F46E5)',
+                    'linear-gradient(to right, #4F46E5, #7C3AED)'
+                  ]
+                }}
+                transition={{ duration: 3, repeat: Infinity }}
+                className="w-2 h-2 rounded-full"
               />
-              <span className="text-sm font-medium text-blue-900">
-                Digital Innovation Agency
+              <span className="text-sm font-medium bg-gradient-to-r from-indigo-600 to-violet-600 
+                bg-clip-text text-transparent flex items-center gap-2"
+              >
+                AI-Powered
+                <svg className="w-3 h-3 text-indigo-600" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M9.5 13.5L12 16l8-8-8 8-8-8 8 8 2.5-2.5z"/>
+                </svg>
+                Future-Ready Solutions
               </span>
             </motion.div>
 

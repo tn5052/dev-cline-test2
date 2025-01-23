@@ -40,7 +40,8 @@ const Navbar = () => {
             scale: navbarScale,
             opacity: navbarOpacity,
           }}
-          className="max-w-7xl mx-auto backdrop-blur-lg bg-white/80 supports-[backdrop-filter]:bg-white/60 px-8 py-4 rounded-2xl"
+          className="max-w-7xl mx-auto backdrop-blur-[20px] backdrop-saturate-[180%] 
+            bg-white/70 supports-[backdrop-filter]:bg-white/50 px-8 py-4 rounded-2xl"
         >
           <div className="flex items-center justify-between">
             <Link href="/" className="relative">
