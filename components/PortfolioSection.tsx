@@ -90,7 +90,14 @@ const PortfolioSection = () => {
   ) // Slowest
 
   return (
-    <section className="py-20 bg-gray-50 overflow-hidden" ref={containerRef}>
+    <section className="py-20 bg-gray-50 overflow-hidden relative" ref={containerRef}>
+      {/* Gradient Circles */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+
+        <motion.div 
+          className="absolute top-1/2 -translate-y-1/2 right-0 w-[40rem] h-[40rem] bg-[#23b8af] rounded-full filter blur-[150px] opacity-70"
+        />
+      </div>
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row gap-12">
           {/* Left Column */}
@@ -187,21 +194,41 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
       variants={fadeInUpVariant}
       className="group relative aspect-square rounded-2xl overflow-hidden bg-white shadow-lg"
     >
-      <img
-        src={project.image}
-        alt={project.title}
-        className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <div className="absolute bottom-0 p-4 text-white">
-          <span className="text-xs font-medium text-secondary/90 block mb-1">
+      {/* Background Image with Hover Blur */}
+      <div className="absolute inset-0 transition-all duration-500 ease-out">
+        <img
+          src={project.image}
+          alt={project.title}
+          className="object-cover w-full h-full transition-all duration-500 group-hover:scale-105 group-hover:blur-sm"
+        />
+        {/* Overlay Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-70 transition-opacity duration-500" />
+      </div>
+
+      {/* Content Container */}
+      <div className="absolute inset-0 p-6 flex flex-col justify-end">
+        {/* Always Visible Text */}
+        <div className="transform transition-all duration-500 ease-out group-hover:translate-y-[-1rem]">
+          <span className="text-sm font-medium text-secondary/90 block mb-2">
             {project.category}
           </span>
-          <h3 className="text-sm font-bold mb-1 line-clamp-2">{project.title}</h3>
-          <p className="text-xs text-white/80 line-clamp-2">
+          <h3 className="text-xl font-bold mb-2 text-white">
+            {project.title}
+          </h3>
+          <p className="text-sm text-white/80 mb-4 line-clamp-2">
             {project.description}
           </p>
         </div>
+
+        {/* Explore Button - Hidden by default, shown on hover */}
+        <motion.button
+          className="bg-secondary/90 text-white px-6 py-2 rounded-lg 
+                     opacity-0 transform translate-y-4 transition-all duration-500 
+                     group-hover:opacity-100 group-hover:translate-y-0
+                     hover:bg-secondary"
+        >
+          Explore Project
+        </motion.button>
       </div>
     </motion.div>
   )
