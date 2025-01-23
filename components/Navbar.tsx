@@ -163,7 +163,9 @@ const Navbar = () => {
                   key={link.href}
                   href={link.href}
                   className={`relative px-5 py-2 mx-1.5 font-semibold uppercase text-sm tracking-wide transition-all duration-200 rounded-full group
-                    ${pathname === link.href ? 'text-white' : 'text-gray-700 hover:text-gray-900'}`}
+                    ${pathname === link.href 
+                      ? 'text-white pointer-events-none' // Added pointer-events-none to disable hover
+                      : 'text-gray-700 hover:text-gray-900'}`}
                 >
                   {link.label}
                   {pathname === link.href && (
@@ -173,7 +175,10 @@ const Navbar = () => {
                       transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
                   )}
-                  <div className="absolute inset-0 bg-[#F1F2F4] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-200 -z-10" />
+                  {/* Only show hover effect on non-active links */}
+                  {pathname !== link.href && (
+                    <div className="absolute inset-0 bg-[#F1F2F4] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-200 -z-10" />
+                  )}
                 </Link>
               ))}
             </div>
