@@ -4,6 +4,7 @@ import ServicesSection from '@/components/ServicesSection'
 import AboutSection from '@/components/AboutSection'
 import PortfolioSection from '@/components/PortfolioSection'
 import FAQSection from '@/components/FAQSection'
+import Footer from '@/components/Footer'
 
 export default async function Home() {
   return (
@@ -14,13 +15,7 @@ export default async function Home() {
       <AboutSection />
       <PortfolioSection />
       <FAQSection />
-      <footer className="bg-primary text-white py-8">
-        <div className="container text-center">
-          <p className="text-white/80">
-            © {new Date().getFullYear()} Devnex LLC. All rights reserved.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </main>
   )
 }
