@@ -54,24 +54,14 @@ const projects = [
   },
 ]
 
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15
-    }
-  }
-}
-
-const projectVariant = {
-  hidden: { opacity: 0, y: 50 },
+const fadeInUpVariant = {
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.8,
-      ease: [0.215, 0.610, 0.355, 1.000]
+      duration: 0.6,
+      ease: "easeOut"
     }
   }
 }
@@ -83,10 +73,10 @@ const PortfolioSection = () => {
     offset: ["start end", "end start"]
   })
 
-  // Create different scroll progress for each column
-  const column1Y = useTransform(scrollYProgress, [0, 1], [100, -100])
-  const column2Y = useTransform(scrollYProgress, [0, 1], [50, -50])
-  const column3Y = useTransform(scrollYProgress, [0, 1], [150, -150])
+  // Different speeds for each column
+  const column1Y = useTransform(scrollYProgress, [0, 1], ['0%', '-60%']) // Fastest
+  const column2Y = useTransform(scrollYProgress, [0, 1], ['0%', '-40%']) // Medium
+  const column3Y = useTransform(scrollYProgress, [0, 1], ['0%', '-20%']) // Slowest
 
   return (
     <section className="py-20 bg-gray-50" ref={containerRef}>
@@ -97,23 +87,23 @@ const PortfolioSection = () => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            variants={staggerContainer}
+            variants={fadeInUpVariant}
             className="lg:w-1/3 lg:sticky lg:top-20 lg:h-fit"
           >
             <motion.span 
-              variants={projectVariant}
+              variants={fadeInUpVariant}
               className="text-secondary font-medium mb-4 block"
             >
               Our Portfolio
             </motion.span>
             <motion.h2 
-              variants={projectVariant}
+              variants={fadeInUpVariant}
               className="text-4xl md:text-5xl font-bold mb-6 leading-tight"
             >
               Transforming Ideas into Digital Excellence
             </motion.h2>
             <motion.p
-              variants={projectVariant}
+              variants={fadeInUpVariant}
               className="text-gray-600 text-lg mb-8"
             >
               We craft innovative solutions that drive business growth and user engagement. Explore our diverse portfolio of successful digital transformations.
@@ -128,14 +118,8 @@ const PortfolioSection = () => {
           </motion.div>
 
           {/* Right Column */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-            className="lg:w-2/3 grid grid-cols-3 gap-4"
-          >
-            {/* First Column */}
+          <div className="lg:w-2/3 grid grid-cols-3 gap-4">
+            {/* First Column - Fastest */}
             <motion.div 
               style={{ y: column1Y }}
               className="space-y-4"
@@ -149,7 +133,7 @@ const PortfolioSection = () => {
               ))}
             </motion.div>
             
-            {/* Second Column */}
+            {/* Second Column - Medium */}
             <motion.div 
               style={{ y: column2Y }}
               className="space-y-4"
@@ -163,7 +147,7 @@ const PortfolioSection = () => {
               ))}
             </motion.div>
 
-            {/* Third Column */}
+            {/* Third Column - Slowest */}
             <motion.div 
               style={{ y: column3Y }}
               className="space-y-4"
@@ -176,7 +160,7 @@ const PortfolioSection = () => {
                 />
               ))}
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
@@ -184,20 +168,12 @@ const PortfolioSection = () => {
 }
 
 const ProjectCard = ({ project, index }: { project: any; index: number }) => {
-  const cardRef = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: cardRef,
-    offset: ["start end", "end start"]
-  })
-
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8])
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 1, 0.3])
-
   return (
     <motion.div
-      ref={cardRef}
-      variants={projectVariant}
-      style={{ scale, opacity }}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-50px" }}
+      variants={fadeInUpVariant}
       className="group relative aspect-square rounded-2xl overflow-hidden bg-white shadow-lg"
     >
       <img
