@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useAnimation } from 'framer-motion'
 import { gsap } from 'gsap'
 import { FaRobot, FaCode, FaBrain, FaChartLine, FaPalette } from 'react-icons/fa'
 import Link from 'next/link'
@@ -49,6 +49,15 @@ const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null)
   const orbitRef = useRef<HTMLDivElement>(null)
 
+  const headingControls = useAnimation()
+  const glowControls = useAnimation()
+
+  const gradients = {
+    primary: "from-blue-600 via-indigo-600 to-violet-600", // Trust & Innovation
+    accent: "from-cyan-500 via-teal-500 to-emerald-500",  // Growth & Success
+    highlight: "from-amber-400 to-orange-500" // Energy & Creativity
+  }
+
   useEffect(() => {
     if (!orbitRef.current) return
 
@@ -81,6 +90,15 @@ const HeroSection = () => {
     })
   }, [])
 
+  useEffect(() => {
+    // Animate glow effect
+    glowControls.start({
+      opacity: [0.4, 0.6, 0.4],
+      scale: [1, 1.05, 1],
+      transition: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+    })
+  }, [glowControls])
+
   return (
     <div ref={containerRef} className="relative min-h-screen pt-16 overflow-hidden bg-[#f8f9fa]">
       {/* Geometric Shapes */}
@@ -97,32 +115,108 @@ const HeroSection = () => {
       <div className="container mx-auto px-4 h-[calc(100vh-4rem)] relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 h-full items-center">
           {/* Left Column - Text Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="space-y-8 relative z-20"
-          >
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
+          <motion.div className="space-y-8 relative z-20">
+            {/* Agency Label */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="inline-block px-4 py-2 rounded-full bg-secondary/10 text-secondary font-medium text-sm"
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-3 px-5 py-2 rounded-full 
+                bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100"
             >
-              Digital Innovation Agency
-            </motion.span>
-            
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="text-5xl lg:text-7xl font-['Chillax'] font-semibold leading-tight"
-            >
-              Transform Your
-              <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-                Digital Presence
+              <motion.div
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className={`w-2 h-2 rounded-full bg-gradient-to-r ${gradients.primary}`}
+              />
+              <span className="text-sm font-medium text-blue-900">
+                Digital Innovation Agency
               </span>
-            </motion.h1>
+            </motion.div>
+
+            {/* New Creative Heading Design */}
+            <div className="relative space-y-3">
+              {/* Transform Text */}
+              <div className="overflow-hidden">
+                <motion.h2
+                  initial={{ y: 100 }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
+                  className="text-4xl font-semibold tracking-tight"
+                >
+                  <motion.span
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                    className="inline-block"
+                  >
+                    We Help You
+                  </motion.span>
+                </motion.h2>
+              </div>
+
+              {/* Main Heading */}
+              <div className="relative">
+                <motion.h1
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight"
+                >
+                  <span className="inline-block">
+                    Transform
+                    <motion.span
+                      initial={{ width: 0 }}
+                      animate={{ width: "100%" }}
+                      transition={{ duration: 0.8, delay: 0.8 }}
+                      className={`h-1 -mt-2 bg-gradient-to-r ${gradients.highlight} block`}
+                    />
+                  </span>{" "}
+                  <span className="inline-block">
+                    Your Digital
+                  </span>
+                </motion.h1>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.6 }}
+                  className="mt-2"
+                >
+                  <span className={`text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r ${gradients.primary} 
+                    bg-clip-text text-transparent inline-block`}
+                  >
+                    Presence
+                    <motion.span
+                      className="inline-block ml-2"
+                      animate={{ rotate: [0, 10, 0] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      ✨
+                    </motion.span>
+                  </span>
+                </motion.div>
+
+                {/* Impact Tagline */}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.9 }}
+                  className="mt-4 flex items-center gap-4"
+                >
+                  <motion.div
+                    animate={{ scaleX: [1, 1.5, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className={`h-px w-12 bg-gradient-to-r ${gradients.accent}`}
+                  />
+                  <span className={`text-xl font-medium bg-gradient-to-r ${gradients.accent} 
+                    bg-clip-text text-transparent`}
+                  >
+                    that creates lasting impact
+                  </span>
+                </motion.div>
+              </div>
+            </div>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
