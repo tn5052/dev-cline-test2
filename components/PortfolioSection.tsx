@@ -73,13 +73,24 @@ const PortfolioSection = () => {
     offset: ["start end", "end start"]
   })
 
-  // Different speeds for each column
-  const column1Y = useTransform(scrollYProgress, [0, 1], ['0%', '-60%']) // Fastest
-  const column2Y = useTransform(scrollYProgress, [0, 1], ['0%', '-40%']) // Medium
-  const column3Y = useTransform(scrollYProgress, [0, 1], ['0%', '-20%']) // Slowest
+  // Adjusted transform for the first column to be slightly faster than the second column
+  const column1Y = useTransform(scrollYProgress, 
+    [0.10, 1], 
+    ['60%', '-10%']  // Slightly faster speed: full bottom to center
+  )
+  
+  const column2Y = useTransform(scrollYProgress, 
+    [0.1, 0.6, 1], 
+    ['20%', '0%', '-20%']
+  ) // Medium
+  
+  const column3Y = useTransform(scrollYProgress, 
+    [0.2, 0.7, 1], 
+    ['10%', '0%', '-10%']
+  ) // Slowest
 
   return (
-    <section className="py-20 bg-gray-50" ref={containerRef}>
+    <section className="py-20 bg-gray-50 overflow-hidden" ref={containerRef}>
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row gap-12">
           {/* Left Column */}
@@ -118,11 +129,11 @@ const PortfolioSection = () => {
           </motion.div>
 
           {/* Right Column */}
-          <div className="lg:w-2/3 grid grid-cols-3 gap-4">
-            {/* First Column - Fastest */}
+          <div className="lg:w-2/3 grid grid-cols-3 gap-4 relative">
+            {/* First Column - Slightly Faster */}
             <motion.div 
               style={{ y: column1Y }}
-              className="space-y-4"
+              className="space-y-4 relative"
             >
               {projects.slice(0, 2).map((project, index) => (
                 <ProjectCard 
@@ -136,7 +147,7 @@ const PortfolioSection = () => {
             {/* Second Column - Medium */}
             <motion.div 
               style={{ y: column2Y }}
-              className="space-y-4"
+              className="space-y-4 relative"
             >
               {projects.slice(2, 5).map((project, index) => (
                 <ProjectCard 
@@ -150,7 +161,7 @@ const PortfolioSection = () => {
             {/* Third Column - Slowest */}
             <motion.div 
               style={{ y: column3Y }}
-              className="space-y-4"
+              className="space-y-4 relative"
             >
               {projects.slice(5, 8).map((project, index) => (
                 <ProjectCard 
