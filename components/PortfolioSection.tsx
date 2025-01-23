@@ -90,33 +90,32 @@ const PortfolioSection = () => {
   ) // Slowest
 
   return (
-    <section className="py-20 bg-gray-50 overflow-hidden relative" ref={containerRef}>
-      {/* Gradient Circles */}
+    <section className="py-10 lg:py-20 bg-gray-50 overflow-hidden relative" ref={containerRef}>
+      {/* Gradient Circles - Adjusted for mobile */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-
         <motion.div 
-          className="absolute top-1/2 -translate-y-1/2 right-0 w-[40rem] h-[40rem] bg-[#23b8af] rounded-full filter blur-[150px] opacity-70"
+          className="absolute top-1/2 -translate-y-1/2 right-0 w-[20rem] lg:w-[40rem] h-[20rem] lg:h-[40rem] bg-[#23b8af] rounded-full filter blur-[100px] lg:blur-[150px] opacity-70"
         />
       </div>
       <div className="container mx-auto px-4">
-        <div className="flex flex-col lg:flex-row gap-12">
-          {/* Left Column */}
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+          {/* Left Column - Adjusted for mobile */}
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeInUpVariant}
-            className="lg:w-1/3 lg:sticky lg:top-20 lg:h-fit"
+            className="w-full lg:w-1/3 lg:sticky lg:top-20 lg:h-fit"
           >
             <motion.span 
               variants={fadeInUpVariant}
-              className="text-secondary font-medium mb-4 block"
+              className="text-secondary font-medium mb-3 lg:mb-4 block"
             >
               Our Portfolio
             </motion.span>
             <motion.h2 
               variants={fadeInUpVariant}
-              className="text-4xl md:text-5xl font-bold mb-6 leading-tight"
+              className="text-3xl lg:text-4xl md:text-5xl font-bold mb-4 lg:mb-6 leading-tight"
             >
               Transforming Ideas into Digital Excellence
             </motion.h2>
@@ -135,12 +134,12 @@ const PortfolioSection = () => {
             </motion.button>
           </motion.div>
 
-          {/* Right Column */}
-          <div className="lg:w-2/3 grid grid-cols-3 gap-4 relative">
+          {/* Right Column - Adjusted for mobile */}
+          <div className="w-full lg:w-2/3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 relative">
             {/* First Column - Slightly Faster */}
             <motion.div 
               style={{ y: column1Y }}
-              className="space-y-4 relative"
+              className="space-y-4 relative only-desktop-parallax"
             >
               {projects.slice(0, 2).map((project, index) => (
                 <ProjectCard 
@@ -192,7 +191,7 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
       variants={fadeInUpVariant}
-      className="group relative aspect-square rounded-2xl overflow-hidden bg-white shadow-lg"
+      className="group relative aspect-[4/3] lg:aspect-square rounded-xl lg:rounded-2xl overflow-hidden bg-white shadow-lg"
     >
       {/* Background Image with Hover Blur */}
       <div className="absolute inset-0 transition-all duration-500 ease-out">
@@ -205,24 +204,24 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-70 transition-opacity duration-500" />
       </div>
 
-      {/* Content Container */}
-      <div className="absolute inset-0 p-6 flex flex-col justify-end">
+      {/* Content Container - Adjusted for mobile */}
+      <div className="absolute inset-0 p-4 lg:p-6 flex flex-col justify-end">
         {/* Always Visible Text */}
-        <div className="transform transition-all duration-500 ease-out group-hover:translate-y-[-1rem]">
-          <span className="text-sm font-medium text-secondary/90 block mb-2">
+        <div className="transform transition-all duration-500 ease-out group-hover:translate-y-[-0.5rem] lg:group-hover:translate-y-[-1rem]">
+          <span className="text-xs lg:text-sm font-medium text-secondary/90 block mb-1 lg:mb-2">
             {project.category}
           </span>
-          <h3 className="text-xl font-bold mb-2 text-white">
+          <h3 className="text-lg lg:text-xl font-bold mb-1 lg:mb-2 text-white">
             {project.title}
           </h3>
-          <p className="text-sm text-white/80 mb-4 line-clamp-2">
+          <p className="text-xs lg:text-sm text-white/80 mb-3 lg:mb-4 line-clamp-2">
             {project.description}
           </p>
         </div>
 
-        {/* Explore Button - Hidden by default, shown on hover */}
+        {/* Explore Button - Adjusted for mobile */}
         <motion.button
-          className="bg-secondary/90 text-white px-6 py-2 rounded-lg 
+          className="bg-secondary/90 text-white px-4 lg:px-6 py-1.5 lg:py-2 rounded-lg text-sm
                      opacity-0 transform translate-y-4 transition-all duration-500 
                      group-hover:opacity-100 group-hover:translate-y-0
                      hover:bg-secondary"
@@ -233,5 +232,14 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
     </motion.div>
   )
 }
+
+// Add this to your global CSS or Tailwind config
+`
+.only-desktop-parallax {
+  @media (max-width: 1024px) {
+    transform: none !important;
+  }
+}
+`
 
 export default PortfolioSection
