@@ -1,8 +1,8 @@
-import HeroSection from '@/components/HeroSection'
-import ServicesSection from '@/components/ServicesSection'
-import AboutSection from '@/components/AboutSection'
-import PortfolioSection from '@/components/PortfolioSection'
-import FAQSection from '@/components/FAQSection'
+import HeroSection from '@/components/home/HeroSection'
+import ServicesSection from '@/components/home/ServicesSection'
+import AboutSection from '@/components/home/AboutSection'
+import PortfolioSection from '@/components/home/PortfolioSection'
+import FAQSection from '@/components/home/FAQSection'
 
 export default async function Home() {
   return (
