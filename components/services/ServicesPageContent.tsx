@@ -146,22 +146,22 @@ const ServicesPageContent = () => (
     <div className="bg-[#EFF2F4] pt-32 pb-20 rounded-b-[40px]">
       <Container size="xl" className="relative">
         <div className="bg-white rounded-[30px] overflow-hidden shadow-lg">
-          <div className="relative h-[300px] px-20 py-10">
+          <div className="relative h-[200px] sm:h-[300px] px-6 sm:px-20 py-6 sm:py-10">
             <img 
               src="/images/services/main-hero.jpg" 
               alt="Services Hero" 
               className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="relative z-10 h-full flex flex-col justify-center">
-                <motion.div
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                >
-                <h1 className="text-white text-7xl font-bold mb-4">
+              >
+                <h1 className="text-white text-4xl sm:text-7xl font-bold mb-4">
                   Our Services
                 </h1>
-                </motion.div>
+              </motion.div>
             </div>
           </div>
         </div>
